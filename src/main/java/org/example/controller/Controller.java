@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import org.example.controller.action.ActionDraw;
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.model.fill.Fill;
 import org.example.model.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
@@ -29,10 +31,11 @@ public class Controller {
     public Controller() {
         model = new Model();
         MyShape shape = new MyShape(new Rectangle2D.Double());
-        shape.setFb(new NoFill());
-        model.setMyShape(shape);
+        Fill fill = new Fill();
+        shape.setFb(fill);
 
-        panel = new MyPanel(this);
+        ActionDraw actionDraw = new ActionDraw(model, shape);
+        MyPanel panel = new MyPanel(this, actionDraw);
         // TODO: 25.10.2024 Поменять наблюдатель на более современную реализацию
         model.addObserver(panel);
 
