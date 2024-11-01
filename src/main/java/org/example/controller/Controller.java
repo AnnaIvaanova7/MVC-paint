@@ -14,9 +14,18 @@ import java.awt.geom.Rectangle2D;
 public class Controller {
     private Model model;
     private MyFrame frame;
+
+    public static Controller instance;
     private MyPanel panel;
     private Point2D firstPoint;
     private Point2D secondPoint;
+
+    public static synchronized Controller getInstance(){
+        if (instance == null){
+            instance = new Controller();
+        }
+        return instance;
+    }
     public Controller() {
         model = new Model();
         MyShape shape = new MyShape(new Rectangle2D.Double());
