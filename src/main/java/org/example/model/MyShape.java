@@ -1,7 +1,7 @@
 package org.example.model;
 
-import org.example.model.fill.Fill;
-import org.example.model.fill.FillBehavior;
+import org.example.model.shape.fill.Fill;
+import org.example.model.shape.fill.FillBehavior;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -16,7 +16,7 @@ public class MyShape implements Cloneable{
 
     public MyShape(RectangularShape shape) {
         this.shape = shape;
-        color = Color.GRAY;
+        color = Color.ORANGE;
         fb = new Fill();
         fb.setColor(color);
         fb.setShape(shape);
