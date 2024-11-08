@@ -4,6 +4,7 @@ import org.example.controller.action.ActionDraw;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.fill.Fill;
+import org.example.model.fill.FillBehavior;
 import org.example.model.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
@@ -17,10 +18,14 @@ public class Controller {
     private Model model;
     private MyFrame frame;
 
+    private MyShape sampleShape;
+
     public static Controller instance;
     private MyPanel panel;
     private Point2D firstPoint;
     private Point2D secondPoint;
+
+    private ActionDraw actionDraw;
 
     public static synchronized Controller getInstance(){
         if (instance == null){
@@ -30,12 +35,14 @@ public class Controller {
     }
     public Controller() {
         model = new Model();
-        MyShape shape = new MyShape(new Rectangle2D.Double());
-        Fill fill = new Fill();
-        shape.setFb(fill);
+        MyShape sampleShape = new MyShape(new Rectangle2D.Double());
+        FillBehavior fill = new Fill();
+        fill.setColor(Color.BLUE);
+        sampleShape.setFb(fill);
 
-        ActionDraw actionDraw = new ActionDraw(model, shape);
-        MyPanel panel = new MyPanel(this, actionDraw);
+        actionDraw = new ActionDraw(model, sampleShape);
+        model.setMyShape(sampleShape);
+        panel = new MyPanel(this, actionDraw);
         // TODO: 25.10.2024 Поменять наблюдатель на более современную реализацию
         model.addObserver(panel);
 
@@ -43,11 +50,10 @@ public class Controller {
         frame.setPanel(panel);
     }
     public void getPointOne(Point2D p){
-        firstPoint = p;
+        actionDraw.createShape(p);
     }
     public void getPointTwo(Point2D p){
-        secondPoint = p;
-        model.changeShape(firstPoint, secondPoint);
+        actionDraw.stretchShape(p);
     }
 
     public void draw(Graphics2D g2) {

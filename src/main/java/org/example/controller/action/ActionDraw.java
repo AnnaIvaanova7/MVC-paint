@@ -19,12 +19,12 @@ public class ActionDraw {
 
     }
 
-    public void stretchShape(Point point){
+    public void stretchShape(Point2D point){
         secondPoint = point;
         shape.setFrame(firstPoint, secondPoint);
         model.update();
     }
-    public void createShape(Point point){
+    public void createShape(Point2D point){
         firstPoint = point;
         shape = shape.clone();
         model.createCurrentShape(shape);

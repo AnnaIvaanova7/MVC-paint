@@ -11,21 +11,29 @@ public class Model extends Observable {
     private MyShape currentShape;
     private List<MyShape> shapeList = new ArrayList<>();
 
+    public List<MyShape> getShapeList() {
+        return shapeList;
+    }
+
     public void setMyShape(MyShape myShape) {
         this.currentShape = myShape;
     }
 
     public void createCurrentShape (MyShape shape){
+        currentShape = shape;
         shapeList.add(shape);
     }
 
     public void changeShape(Point2D x, Point2D y) {
+
         currentShape.setFrame(x, y);
         update();
     }
 
     public void draw(Graphics2D g) {
-        shapeList.forEach(shape -> shape.draw(g));
+        for (MyShape shape : shapeList){
+            shape.draw(g);
+        }
     }
 
     public void update() {
