@@ -18,6 +18,8 @@ public class Controller extends MenuState{
     private Model model;
     private MyFrame frame;
 
+    private MenuState menuState;
+
     private MyShape sampleShape;
 
     public static Controller instance;
@@ -34,7 +36,41 @@ public class Controller extends MenuState{
         return instance;
     }
     public Controller() {
+
+        menuState = new MenuState();
+        ShapeCreator shapeCreator = ShapeCreator.getInstance();
+        shapeCreator.configure(menuState);
+
         model = new Model();
+        menuState.setActionDraw(new ActionDraw(model));
+
+        panel = new MyPanel(this);
+
+        model.addObserver(panel);
+
+        frame = new MyFrame();
+        frame.setPanel(panel);
+
+        MenuController menuController = MenuController.getInstance();
+        menuController.setActionDraw(actionDraw);
+        menuController.setState(menuState);
+        frame.setJMenuBar(menuController.createMenuBar());
+    }
+    public void getPointOne(Point2D p){
+        ActionDraw actionDraw1 = menuState.getActionDraw();
+        actionDraw1.mousePressed(p);
+    }
+    public void getPointTwo(Point2D p){
+        ActionDraw actionDraw1 = menuState.getActionDraw();
+        actionDraw1.mouseDragged(p);
+    }
+
+    public void draw(Graphics2D g2) {
+        model.draw(g2);
+    }
+}
+
+/*model = new Model();
         MyShape sampleShape = new MyShape(new Rectangle2D.Double());
         sampleShape.setFb(new NoFill());
         actionDraw = new ActionDraw(model, sampleShape);
@@ -49,15 +85,4 @@ public class Controller extends MenuState{
         MenuController menuController = MenuController.getInstance();
         menuController.setActionDraw(actionDraw);
         frame.setJMenuBar(menuController.createMenuBar());
-    }
-    public void getPointOne(Point2D p){
-        actionDraw.createShape(p);
-    }
-    public void getPointTwo(Point2D p){
-        actionDraw.stretchShape(p);
-    }
-
-    public void draw(Graphics2D g2) {
-        model.draw(g2);
-    }
-}
+*/

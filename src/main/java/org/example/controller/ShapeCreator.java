@@ -19,6 +19,10 @@ public class ShapeCreator {
         return instance;
     }
 
+    public ShapeCreator() {
+
+    }
+
     public void configure(MenuState state){
         this.state = state;
     }
@@ -32,6 +36,7 @@ public class ShapeCreator {
         fillBehavior.setColor(state.getColor());
 
         newShape.setFb(fillBehavior);
+        newShape.setShape(shape);
 
         return newShape;
     }

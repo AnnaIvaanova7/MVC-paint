@@ -19,6 +19,10 @@ public class Model extends Observable {
         this.currentShape = myShape;
     }
 
+    public void addCurrentShape(MyShape sampleShape){
+        shapeList.add(sampleShape);
+    }
+
     public void createCurrentShape (MyShape shape){
         currentShape = shape;
         shapeList.add(shape);

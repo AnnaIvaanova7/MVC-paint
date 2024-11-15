@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
 import org.example.model.MyShape;
+import org.example.model.shape.factory.ShapeType;
 
 import javax.swing.*;
 import java.awt.geom.Ellipse2D;
@@ -11,6 +12,8 @@ public class MenuController extends MenuState{
     private static MenuController instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
+
+    private MenuState state;
     private MenuController(){
         menuBar = createMenuBar();
     }
@@ -36,15 +39,13 @@ public class MenuController extends MenuState{
 
         JRadioButtonMenuItem square = new JRadioButtonMenuItem("Прямоугольник");
         square.addActionListener(e -> {
-            MyShape sampleShape = actionDraw.getShape();
-            sampleShape.setShape(new Rectangle2D.Double());
+            state.setShapeType(ShapeType.RECTANGLE);
         });
         shapeMenu.add(square);
         group.add(square);
         JRadioButtonMenuItem ellipse = new JRadioButtonMenuItem("Эллипс");
         ellipse.addActionListener(e -> {
-            MyShape sampleShape = actionDraw.getShape();
-            sampleShape.setShape(new Ellipse2D.Double());
+            state.setShapeType(ShapeType.ELLIPSE);
         });
         shapeMenu.add(ellipse);
         group.add(ellipse);
@@ -55,11 +56,21 @@ public class MenuController extends MenuState{
         JMenu colorMenu = new JMenu("Цвет");
         ButtonGroup group = new ButtonGroup();
 
+        JRadioButtonMenuItem blue = new JRadioButtonMenuItem("Синий");
+        JRadioButtonMenuItem red = new JRadioButtonMenuItem("Красный");
+        JRadioButtonMenuItem orange = new JRadioButtonMenuItem("Оранжевый");
+        JRadioButtonMenuItem green = new JRadioButtonMenuItem("Зелёный");
+        JRadioButtonMenuItem cian = new JRadioButtonMenuItem("Бирюзовый");
+
 
         return colorMenu;
     }
 
     public void setActionDraw(ActionDraw actionDraw) {
         this.actionDraw = actionDraw;
+    }
+
+    public void setState(MenuState state) {
+        this.state = state;
     }
 }
