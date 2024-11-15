@@ -5,6 +5,7 @@ import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.fill.Fill;
 import org.example.model.shape.fill.FillBehavior;
+import org.example.model.shape.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
 
@@ -13,7 +14,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 // TODO: 24.10.2024 Сделать singleton класс
-public class Controller {
+public class Controller extends MenuState{
     private Model model;
     private MyFrame frame;
 
@@ -35,18 +36,19 @@ public class Controller {
     public Controller() {
         model = new Model();
         MyShape sampleShape = new MyShape(new Rectangle2D.Double());
-        FillBehavior fill = new Fill();
-        fill.setColor(Color.BLUE);
-        sampleShape.setFb(fill);
-
+        sampleShape.setFb(new NoFill());
         actionDraw = new ActionDraw(model, sampleShape);
         model.setMyShape(sampleShape);
-        panel = new MyPanel(this, actionDraw);
-        // TODO: 25.10.2024 Поменять наблюдатель на более современную реализацию
+        panel = new MyPanel(this);
+
         model.addObserver(panel);
 
         frame = new MyFrame();
         frame.setPanel(panel);
+
+        MenuController menuController = MenuController.getInstance();
+        menuController.setActionDraw(actionDraw);
+        frame.setJMenuBar(menuController.createMenuBar());
     }
     public void getPointOne(Point2D p){
         actionDraw.createShape(p);

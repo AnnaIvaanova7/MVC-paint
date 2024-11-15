@@ -30,5 +30,8 @@ public class ActionDraw {
         model.createCurrentShape(shape);
         model.update();
     }
+    public MyShape getShape() {
+        return shape;
+    }
 
 }
