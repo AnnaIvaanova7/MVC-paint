@@ -17,33 +17,8 @@ public class MyShape implements Cloneable{
     public Color getColor() {
         return color;
     }
-
-    public MyShape(RectangularShape shape) {
-        this.shape = shape;
-        color = Color.ORANGE;
-        fb = new Fill();
-        fb.setColor(color);
-        fb.setShape(shape);
-    }
-
-    // TODO: 25.10.2024  Попробовать вызовы через разные конструкторы, затем переделать создание через фабрику
-    public MyShape() {
-
-    }
-
-    // TODO: 25.10.2024  Попробовать вызовы через разные конструкторы, затем переделать создание через фабрику
-    public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
-        this.color = color;
-        this.shape = shape;
-        this.fb = fb;
-        this.fb.setShape(shape);
-        this.fb.setColor(color);
-    }
-
     public void setFb(FillBehavior fb) {
         this.fb = fb;
-        fb.setShape(shape);
-        fb.setColor(color);
     }
 
     public void setShape(RectangularShape shape) {
@@ -51,6 +26,7 @@ public class MyShape implements Cloneable{
     }
 
     public void setFrame(Point2D x, Point2D y) {
+
         shape.setFrameFromDiagonal(x, y);
     }
 
