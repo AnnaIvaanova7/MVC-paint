@@ -5,6 +5,7 @@ import org.example.model.MyShape;
 import org.example.model.shape.factory.ShapeType;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
@@ -26,7 +27,9 @@ public class MenuController extends MenuState{
     public JMenuBar createMenuBar(){
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = createShapeMenu();
+        JMenu colorMenu = createColorMenu();
         menuBar.add(shapeMenu);
+        menuBar.add(colorMenu);
 
         return menuBar;
     }
@@ -60,7 +63,37 @@ public class MenuController extends MenuState{
         JRadioButtonMenuItem red = new JRadioButtonMenuItem("Красный");
         JRadioButtonMenuItem orange = new JRadioButtonMenuItem("Оранжевый");
         JRadioButtonMenuItem green = new JRadioButtonMenuItem("Зелёный");
-        JRadioButtonMenuItem cian = new JRadioButtonMenuItem("Бирюзовый");
+        JRadioButtonMenuItem cyan = new JRadioButtonMenuItem("Бирюзовый");
+
+        blue.addActionListener(e -> {
+            state.setColor(Color.BLUE);
+        });
+        colorMenu.add(blue);
+        group.add(blue);
+
+        red.addActionListener(e -> {
+            state.setColor(Color.RED);
+        });
+        colorMenu.add(red);
+        group.add(red);
+
+        orange.addActionListener(e -> {
+            state.setColor(Color.ORANGE);
+        });
+        colorMenu.add(orange);
+        group.add(orange);
+
+        green.addActionListener(e -> {
+            state.setColor(Color.GREEN);
+        });
+        colorMenu.add(green);
+        group.add(green);
+
+        cyan.addActionListener(e -> {
+            state.setColor(Color.CYAN);
+        });
+        colorMenu.add(cyan);
+        group.add(cyan);
 
 
         return colorMenu;
