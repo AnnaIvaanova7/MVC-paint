@@ -4,15 +4,12 @@ import org.example.controller.action.ActionDraw;
 import org.example.controller.action.AppAction;
 import org.example.model.Model;
 import org.example.model.MyShape;
-import org.example.model.shape.fill.Fill;
-import org.example.model.shape.fill.FillBehavior;
-import org.example.model.shape.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
+import org.example.view.menu.MenuCreator;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 // TODO: 24.10.2024 Сделать singleton класс
 public class Controller extends MenuState{
@@ -51,11 +48,11 @@ public class Controller extends MenuState{
         frame = new MyFrame();
         frame.setPanel(panel);
 
-        MenuController menuController = MenuController.getInstance();
-        menuController.setActionDraw(actionDraw);
-        menuController.setState(menuState);
-        menuController.setModel(model);
-        frame.setJMenuBar(menuController.createMenuBar());
+        MenuCreator menuCreator = MenuCreator.getInstance();
+        menuCreator.setState(menuState);
+        menuCreator.setModel(model);
+        frame.setJMenuBar(menuCreator.createMenuBar());
+        frame.add(menuCreator.createToolBar(), BorderLayout.NORTH);
     }
     public void getPointOne(Point2D p){
         AppAction actionDraw1 = menuState.getAction();

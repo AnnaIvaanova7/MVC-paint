@@ -10,6 +10,6 @@ public class SwitchAction implements AppCommand {
     private AppAction appAction;
     @Override
     public void execute() {
-
+        menuState.setAction(appAction);
     }
 }

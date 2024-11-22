@@ -10,6 +10,6 @@ public class SwitchShape implements AppCommand{
     private MenuState state;
     @Override
     public void execute() {
-
+        state.setShapeType(shapeType);
     }
 }

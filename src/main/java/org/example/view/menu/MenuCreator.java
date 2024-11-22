@@ -1,30 +1,33 @@
-package org.example.controller;
+package org.example.view.menu;
 
+
+import org.example.controller.MenuState;
 import org.example.controller.action.ActionDraw;
 import org.example.controller.action.ActionMove;
 import org.example.model.Model;
-import org.example.model.MyShape;
 import org.example.model.shape.factory.ShapeType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
+import java.net.URL;
+import java.util.ArrayList;
 
-public class MenuController extends MenuState{
-    private static MenuController instance;
+public class MenuCreator extends MenuState {
+    private static MenuCreator instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
 
     private Model model;
 
     private MenuState state;
-    private MenuController(){
+
+    private JRadioButtonMenuItem rgbButton;
+    private MenuCreator(){
         menuBar = createMenuBar();
     }
-    public static MenuController getInstance(){
+    public static MenuCreator getInstance(){
         if (instance == null){
-            instance = new MenuController();
+            instance = new MenuCreator();
         }
         return instance;
     }
@@ -74,6 +77,7 @@ public class MenuController extends MenuState{
         JRadioButtonMenuItem cyan = new JRadioButtonMenuItem("Бирюзовый");
         JRadioButtonMenuItem black = new JRadioButtonMenuItem("Чёрный");
         JRadioButtonMenuItem white = new JRadioButtonMenuItem("Белый");
+        rgbButton = new JRadioButtonMenuItem("RGB");
 
 
         blue.addActionListener(e -> {
@@ -170,6 +174,25 @@ public class MenuController extends MenuState{
 
         return actionMenu;
     }
+
+    public JToolBar createToolBar(){
+        ArrayList<Action> subMenuItems = createToolBarItems();
+        JToolBar jToolBar = new JToolBar();
+
+        subMenuItems.forEach(jToolBar::add);
+
+        return jToolBar;
+    }
+
+    private ArrayList<Action> createToolBarItems(){
+        ArrayList<Action> menuItems = new ArrayList<>();
+        URL colorUrl = getClass().getClassLoader().getResource("ico/color_16x16.png");
+        ImageIcon colorIco = colorUrl == null ? null : new ImageIcon(colorUrl);
+        AppCommand colorCommand = new SwitchColor(rgbButton, false,  state, null);
+        menuItems.add(new CommandActionListener("Цвет", colorIco, colorCommand));
+        return menuItems;
+    }
+
 
     public void setActionDraw(ActionDraw actionDraw) {
         this.actionDraw = actionDraw;
