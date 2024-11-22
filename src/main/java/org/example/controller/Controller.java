@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
+import org.example.controller.action.AppAction;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.fill.Fill;
@@ -24,8 +25,7 @@ public class Controller extends MenuState{
 
     public static Controller instance;
     private MyPanel panel;
-    private Point2D firstPoint;
-    private Point2D secondPoint;
+
 
     private ActionDraw actionDraw;
 
@@ -42,7 +42,7 @@ public class Controller extends MenuState{
         shapeCreator.configure(menuState);
 
         model = new Model();
-        menuState.setActionDraw(new ActionDraw(model));
+        menuState.setAction(new ActionDraw(model));
 
         panel = new MyPanel(this);
 
@@ -54,14 +54,15 @@ public class Controller extends MenuState{
         MenuController menuController = MenuController.getInstance();
         menuController.setActionDraw(actionDraw);
         menuController.setState(menuState);
+        menuController.setModel(model);
         frame.setJMenuBar(menuController.createMenuBar());
     }
     public void getPointOne(Point2D p){
-        ActionDraw actionDraw1 = menuState.getActionDraw();
+        AppAction actionDraw1 = menuState.getAction();
         actionDraw1.mousePressed(p);
     }
     public void getPointTwo(Point2D p){
-        ActionDraw actionDraw1 = menuState.getActionDraw();
+        AppAction actionDraw1 = menuState.getAction();
         actionDraw1.mouseDragged(p);
     }
 
@@ -69,6 +70,16 @@ public class Controller extends MenuState{
         model.draw(g2);
     }
 }
+/*    public Controller() {
+        model = new Model();
+        MyShape sampleShape = new MyShape(new Rectangle2D.Double());
+        FillBehavior fill = new Fill();
+        fill.setColor(Color.BLUE);
+        sampleShape.setFb(fill);
+
+        actionDraw = new ActionDraw(model, sampleShape);
+        model.setMyShape(sampleShape);
+        panel = new MyPanel(this, actionDraw);
 
 /*model = new Model();
         MyShape sampleShape = new MyShape(new Rectangle2D.Double());

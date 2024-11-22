@@ -42,11 +42,11 @@ public class MenuState {
         this.shapeType = shapeType;
     }
 
-    public AppAction getActionDraw() {
+    public AppAction getAction() {
         return actionDraw;
     }
 
-    public void setActionDraw(ActionDraw actionDraw) {
+    public void setAction(AppAction actionDraw) {
         this.actionDraw = actionDraw;
     }
 }

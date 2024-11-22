@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
+import org.example.controller.action.ActionMove;
+import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.ShapeType;
 
@@ -13,6 +15,8 @@ public class MenuController extends MenuState{
     private static MenuController instance;
     private JMenuBar menuBar;
     private ActionDraw actionDraw;
+
+    private Model model;
 
     private MenuState state;
     private MenuController(){
@@ -28,8 +32,12 @@ public class MenuController extends MenuState{
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = createShapeMenu();
         JMenu colorMenu = createColorMenu();
+        JMenu actionMenu = createActionMenu();
+        JMenu fillMenu = createFillMenu();
         menuBar.add(shapeMenu);
         menuBar.add(colorMenu);
+        menuBar.add(actionMenu);
+        menuBar.add(fillMenu);
 
         return menuBar;
     }
@@ -64,6 +72,9 @@ public class MenuController extends MenuState{
         JRadioButtonMenuItem orange = new JRadioButtonMenuItem("Оранжевый");
         JRadioButtonMenuItem green = new JRadioButtonMenuItem("Зелёный");
         JRadioButtonMenuItem cyan = new JRadioButtonMenuItem("Бирюзовый");
+        JRadioButtonMenuItem black = new JRadioButtonMenuItem("Чёрный");
+        JRadioButtonMenuItem white = new JRadioButtonMenuItem("Белый");
+
 
         blue.addActionListener(e -> {
             state.setColor(Color.BLUE);
@@ -95,21 +106,67 @@ public class MenuController extends MenuState{
         colorMenu.add(cyan);
         group.add(cyan);
 
+        black.addActionListener(e -> {
+            state.setColor(Color.BLACK);
+        });
+        colorMenu.add(black);
+        group.add(black);
+
+        white.addActionListener(e -> {
+            state.setColor(Color.WHITE);
+        });
+        colorMenu.add(white);
+        group.add(white);
+
 
         return colorMenu;
+    }
+
+    private JMenu createFillMenu(){
+        JMenu fillMenu = new JMenu("Заливка");
+        ButtonGroup group = new ButtonGroup();
+
+        JRadioButtonMenuItem fill = new JRadioButtonMenuItem("Есть");
+        JRadioButtonMenuItem noFill = new JRadioButtonMenuItem("Нет");
+
+        fill.addActionListener(e -> {
+            state.setFill(true);
+
+        });
+        fillMenu.add(fill);
+        group.add(fill);
+
+        noFill.addActionListener(e -> {
+            state.setFill(false);
+
+        });
+        fillMenu.add(noFill);
+        group.add(noFill);
+
+
+        return fillMenu;
     }
 
     private JMenu createActionMenu(){
         JMenu actionMenu = new JMenu("Действие");
         ButtonGroup group = new ButtonGroup();
 
-        JRadioButtonMenuItem doIt = new JRadioButtonMenuItem("Двигать");
+        JRadioButtonMenuItem move = new JRadioButtonMenuItem("Двигать");
+        JRadioButtonMenuItem draw = new JRadioButtonMenuItem("Рисовать");
 
-        doIt.addActionListener(e -> {
+        move.addActionListener(e -> {
+            state.setAction(new ActionMove(model));
 
         });
-        actionMenu.add(doIt);
-        group.add(doIt);
+        actionMenu.add(move);
+        group.add(move);
+
+        draw.addActionListener(e -> {
+            state.setAction(new ActionDraw(model));
+
+        });
+        actionMenu.add(draw);
+        group.add(draw);
 
         return actionMenu;
     }
@@ -120,5 +177,9 @@ public class MenuController extends MenuState{
 
     public void setState(MenuState state) {
         this.state = state;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }
