@@ -17,6 +17,11 @@ public class MyShape implements Cloneable{
     public Color getColor() {
         return color;
     }
+
+    public RectangularShape getShape() {
+        return shape;
+    }
+
     public void setFb(FillBehavior fb) {
         this.fb = fb;
     }

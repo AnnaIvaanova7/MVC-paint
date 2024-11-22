@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
+import org.example.controller.action.AppAction;
 import org.example.model.shape.factory.ShapeType;
 
 import java.awt.*;
@@ -9,7 +10,7 @@ public class MenuState {
     private boolean fill;
     private Color color;
     private ShapeType shapeType;
-    private ActionDraw actionDraw;
+    private AppAction actionDraw;
 
     public MenuState(){
         shapeType = ShapeType.RECTANGLE;
@@ -41,7 +42,7 @@ public class MenuState {
         this.shapeType = shapeType;
     }
 
-    public ActionDraw getActionDraw() {
+    public AppAction getActionDraw() {
         return actionDraw;
     }
 

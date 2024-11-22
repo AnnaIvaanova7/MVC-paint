@@ -99,6 +99,21 @@ public class MenuController extends MenuState{
         return colorMenu;
     }
 
+    private JMenu createActionMenu(){
+        JMenu actionMenu = new JMenu("Действие");
+        ButtonGroup group = new ButtonGroup();
+
+        JRadioButtonMenuItem doIt = new JRadioButtonMenuItem("Двигать");
+
+        doIt.addActionListener(e -> {
+
+        });
+        actionMenu.add(doIt);
+        group.add(doIt);
+
+        return actionMenu;
+    }
+
     public void setActionDraw(ActionDraw actionDraw) {
         this.actionDraw = actionDraw;
     }
