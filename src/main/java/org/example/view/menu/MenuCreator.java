@@ -190,6 +190,37 @@ public class MenuCreator extends MenuState {
         ImageIcon colorIco = colorUrl == null ? null : new ImageIcon(colorUrl);
         AppCommand colorCommand = new SwitchColor(rgbButton, false,  state, null);
         menuItems.add(new CommandActionListener("Цвет", colorIco, colorCommand));
+
+        URL fillUrl = getClass().getClassLoader().getResource("ico/fill_16x16.png");
+        ImageIcon fillIco = fillUrl == null ? null : new ImageIcon(fillUrl);
+        AppCommand fillCommand = new SwitchFill(true, state);
+        menuItems.add(new CommandActionListener("Заливка", fillIco, fillCommand));
+
+        URL noFillUrl = getClass().getClassLoader().getResource("ico/no_fill_16x16.png");
+        ImageIcon noFillIco = noFillUrl == null ? null : new ImageIcon(noFillUrl);
+        AppCommand noFillCommand = new SwitchFill(false, state);
+        menuItems.add(new CommandActionListener("Заливка",noFillIco,noFillCommand));
+
+        URL rectangularUrl = getClass().getClassLoader().getResource("ico/rectangular_16x16.png");
+        ImageIcon rectangularIco = rectangularUrl == null ? null : new ImageIcon(rectangularUrl);
+        AppCommand rectangularCommand = new SwitchShape(ShapeType.RECTANGLE, state);
+        menuItems.add(new CommandActionListener("Фигура", rectangularIco, rectangularCommand));
+
+        URL ellipseUrl = getClass().getClassLoader().getResource("ico/ellipse_16x16.png");
+        ImageIcon ellipseIco = ellipseUrl == null ? null : new ImageIcon(ellipseUrl);
+        AppCommand ellipseCommand = new SwitchShape(ShapeType.ELLIPSE, state);
+        menuItems.add(new CommandActionListener("Фигура", ellipseIco, ellipseCommand));
+
+        URL drawUrl = getClass().getClassLoader().getResource("ico/draw_16x16.png");
+        ImageIcon drawIco = drawUrl == null ? null : new ImageIcon(drawUrl);
+        AppCommand drawCommand = new SwitchAction(state, new ActionDraw(model));
+        menuItems.add(new CommandActionListener("Рисовать", drawIco, drawCommand));
+
+        URL moveUrl = getClass().getClassLoader().getResource("ico/move_16x16.png");
+        ImageIcon moveIco = moveUrl == null ? null : new ImageIcon(moveUrl);
+        AppCommand moveCommand = new SwitchAction(state, new ActionMove(model));
+        menuItems.add(new CommandActionListener("Двигать", moveIco, moveCommand));
+
         return menuItems;
     }
 

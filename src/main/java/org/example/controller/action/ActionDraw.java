@@ -48,4 +48,19 @@ public class ActionDraw implements AppAction {
         sampleShape.setFrame(firstPoint, secondPoint);
         model.update();
     }
+
+    @Override
+    public void execute() {
+
+    }
+
+    @Override
+    public void unexecute() {
+
+    }
+
+    @Override
+    public AppAction cloneAction() {
+        return null;
+    }
 }

@@ -47,4 +47,19 @@ public class ActionMove implements AppAction{
 
 
     }
+
+    @Override
+    public void execute() {
+
+    }
+
+    @Override
+    public void unexecute() {
+
+    }
+
+    @Override
+    public AppAction cloneAction() {
+        return null;
+    }
 }
