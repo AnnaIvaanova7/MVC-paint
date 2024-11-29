@@ -4,6 +4,7 @@ package org.example.view.menu;
 import org.example.controller.MenuState;
 import org.example.controller.action.ActionDraw;
 import org.example.controller.action.ActionMove;
+import org.example.controller.state.UndoMachine;
 import org.example.model.Model;
 import org.example.model.shape.factory.ShapeType;
 
@@ -220,6 +221,11 @@ public class MenuCreator extends MenuState {
         ImageIcon moveIco = moveUrl == null ? null : new ImageIcon(moveUrl);
         AppCommand moveCommand = new SwitchAction(state, new ActionMove(model));
         menuItems.add(new CommandActionListener("Двигать", moveIco, moveCommand));
+
+        URL undoUrl = getClass().getClassLoader().getResource("ico/undo_16x16.png");
+        ImageIcon undoIco = undoUrl == null ? null : new ImageIcon(undoUrl);
+        AppCommand undoCommand = new SwitchUndo(new UndoMachine());
+        menuItems.add(new CommandActionListener("Отменить", undoIco, undoCommand));
 
         return menuItems;
     }

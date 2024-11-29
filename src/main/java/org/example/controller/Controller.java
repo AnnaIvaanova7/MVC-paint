@@ -25,7 +25,7 @@ public class Controller extends MenuState{
     private MyPanel panel;
 
     private UndoMachine undoMachine;
-    private ActionDraw actionDraw;
+    private AppAction action;
 
     public static synchronized Controller getInstance(){
         if (instance == null){
@@ -60,6 +60,8 @@ public class Controller extends MenuState{
     public void getPointOne(Point2D p){
         AppAction actionDraw1 = menuState.getAction();
         actionDraw1.mousePressed(p);
+        undoMachine.add(action.cloneAction());
+        undoMachine.updateButtons();
     }
     public void getPointTwo(Point2D p){
         AppAction actionDraw1 = menuState.getAction();
