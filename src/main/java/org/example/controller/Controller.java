@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
 import org.example.controller.action.AppAction;
+import org.example.controller.state.UndoMachine;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.view.MyFrame;
@@ -23,7 +24,7 @@ public class Controller extends MenuState{
     public static Controller instance;
     private MyPanel panel;
 
-
+    private UndoMachine undoMachine;
     private ActionDraw actionDraw;
 
     public static synchronized Controller getInstance(){
@@ -47,6 +48,8 @@ public class Controller extends MenuState{
 
         frame = new MyFrame();
         frame.setPanel(panel);
+
+        undoMachine = new UndoMachine();
 
         MenuCreator menuCreator = MenuCreator.getInstance();
         menuCreator.setState(menuState);
