@@ -11,6 +11,8 @@ public class ActionMove implements AppAction{
     private Point2D secondPoint;
     private Model model;
 
+    private MyShape moveShape;
+
     public ActionMove(Model model){
         this.model = model;
     }
@@ -22,6 +24,7 @@ public class ActionMove implements AppAction{
                 .filter(myShape -> myShape.getShape().contains(point))
                 .findFirst()
                 .orElse(null);
+        moveShape = shape;
         model.update();
 
     }
@@ -42,9 +45,28 @@ public class ActionMove implements AppAction{
         newShapeSecondPoint.setLocation(shape.getShape().getMinX() + deltaX, shape.getShape().getMinY() + deltaY);
 
         shape.getShape().setFrameFromDiagonal(newShapeFirstPoint, newShapeSecondPoint);
+        moveShape.getShape().setFrameFromDiagonal(newShapeFirstPoint, newShapeSecondPoint);
         firstPoint = secondPoint;
         model.update();
 
 
+    }
+
+    @Override
+    public void execute() {
+
+    }
+
+    @Override
+    public void unexecute() {
+
+    }
+
+    @Override
+    public AppAction cloneAction() {
+        ActionMove actionMove = new ActionMove(model);
+        actionMove.shape = shape.clone();
+        actionMove.moveShape = moveShape;
+        return actionMove;
     }
 }

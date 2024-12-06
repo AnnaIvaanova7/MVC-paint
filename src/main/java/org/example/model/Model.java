@@ -44,4 +44,20 @@ public class Model extends Observable {
         this.setChanged();
         this.notifyObservers();
     }
+
+
+    public MyShape getLastShape() {
+        int size = shapeList.size();
+        return shapeList.isEmpty() ? null : shapeList.get(size-1);
+    }
+
+    public void removeLastShape() {
+        int size = shapeList.size();
+        if (size == 0){
+            return;
+        }
+        else{
+            shapeList.remove(size-1);
+        }
+    }
 }

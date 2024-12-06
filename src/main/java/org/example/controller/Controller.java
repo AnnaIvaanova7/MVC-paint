@@ -2,17 +2,15 @@ package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
 import org.example.controller.action.AppAction;
+import org.example.controller.state.UndoMachine;
 import org.example.model.Model;
 import org.example.model.MyShape;
-import org.example.model.shape.fill.Fill;
-import org.example.model.shape.fill.FillBehavior;
-import org.example.model.shape.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
+import org.example.view.menu.MenuCreator;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 // TODO: 24.10.2024 Сделать singleton класс
 public class Controller extends MenuState{
@@ -26,8 +24,8 @@ public class Controller extends MenuState{
     public static Controller instance;
     private MyPanel panel;
 
-
-    private ActionDraw actionDraw;
+    private UndoMachine undoMachine;
+    private AppAction action;
 
     public static synchronized Controller getInstance(){
         if (instance == null){
@@ -51,15 +49,19 @@ public class Controller extends MenuState{
         frame = new MyFrame();
         frame.setPanel(panel);
 
-        MenuController menuController = MenuController.getInstance();
-        menuController.setActionDraw(actionDraw);
-        menuController.setState(menuState);
-        menuController.setModel(model);
-        frame.setJMenuBar(menuController.createMenuBar());
+        undoMachine = new UndoMachine();
+
+        MenuCreator menuCreator = MenuCreator.getInstance();
+        menuCreator.setState(menuState);
+        menuCreator.setModel(model);
+        frame.setJMenuBar(menuCreator.createMenuBar());
+        frame.add(menuCreator.createToolBar(), BorderLayout.NORTH);
     }
     public void getPointOne(Point2D p){
         AppAction actionDraw1 = menuState.getAction();
         actionDraw1.mousePressed(p);
+        undoMachine.add(action.cloneAction());
+        undoMachine.updateButtons();
     }
     public void getPointTwo(Point2D p){
         AppAction actionDraw1 = menuState.getAction();
