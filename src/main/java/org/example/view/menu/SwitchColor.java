@@ -1,24 +1,20 @@
 package org.example.view.menu;
 
-import org.example.controller.MenuState;
+import org.example.model.shape.factory.MenuState;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SwitchColor implements AppCommand{
-
+public class SwitchColor implements AppCommand {
     private JRadioButtonMenuItem radioButton;
-
     private boolean useDefault;
-
-    private MenuState menuState;
-
+    private MenuState state;
     private Color defaultColor;
 
-    public SwitchColor(JRadioButtonMenuItem radioButton, boolean useDefault, MenuState menuState, Color defaultColor) {
+    public SwitchColor(JRadioButtonMenuItem radioButton, boolean useDefault, MenuState state, Color defaultColor) {
         this.radioButton = radioButton;
         this.useDefault = useDefault;
-        this.menuState = menuState;
+        this.state = state;
         this.defaultColor = defaultColor;
     }
 
@@ -28,6 +24,6 @@ public class SwitchColor implements AppCommand{
         Color color = useDefault
                 ? defaultColor
                 : JColorChooser.showDialog(null, "Выбор цвета", Color.BLACK);
-        menuState.setColor(color);
+        state.setColor(color);
     }
 }

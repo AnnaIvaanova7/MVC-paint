@@ -1,12 +1,22 @@
 package org.example.controller.state;
 
-import org.example.controller.action.AppAction;
+import org.example.controller.AppAction;
 
 import java.util.LinkedList;
 
 public abstract class UndoRedoState {
     private static final int MAX_UNDO = 50;
+
+    public LinkedList<AppAction> getUndoActivityList() {
+        return undoActivityList;
+    }
+
     private final LinkedList<AppAction> undoActivityList;
+
+    public LinkedList<AppAction> getRedoActivityList() {
+        return redoActivityList;
+    }
+
     private final LinkedList<AppAction> redoActivityList;
 
     protected UndoRedoState(LinkedList<AppAction> undoActivityList, LinkedList<AppAction> redoActivity) {
@@ -26,11 +36,5 @@ public abstract class UndoRedoState {
         }
     }
 
-    public LinkedList<AppAction> getUndoActivityList() {
-        return undoActivityList;
-    }
 
-    public LinkedList<AppAction> getRedoActivityList() {
-        return redoActivityList;
-    }
 }

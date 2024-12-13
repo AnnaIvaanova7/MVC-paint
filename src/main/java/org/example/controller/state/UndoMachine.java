@@ -1,18 +1,14 @@
 package org.example.controller.state;
 
-import org.example.controller.action.AppAction;
-import org.example.view.menu.CommandActionListener;
+import org.example.controller.AppAction;
+import org.example.view.menu.CommandActionListeners;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
 public class UndoMachine {
     private UndoRedoState undoRedoState;
-
-    private CommandActionListener undoActionListener;
-
-    private CommandActionListener redoActionListener;
+    private CommandActionListeners undo;
+    private CommandActionListeners redo;
 
     public UndoMachine() {
         LinkedList<AppAction> undoList = new LinkedList<>();
@@ -36,17 +32,23 @@ public class UndoMachine {
     public boolean isEnableRedo() {
         return !undoRedoState.getRedoActivityList().isEmpty();
     }
-    public void updateButtons(){
-        undoActionListener.setEnabled(isEnableUndo());
-        redoActionListener.setEnabled(isEnableRedo());
-    }
 
     public void add(AppAction action) {
         undoRedoState.clearHistory();
         undoRedoState.addAction(action);
-
         undoRedoState = new StateEnableUndoDisableRedo(undoRedoState.getUndoActivityList(), undoRedoState.getRedoActivityList());
     }
+    public void updateButtons() {
+        undo.setEnabled(isEnableUndo());
+        redo.setEnabled(isEnableRedo());
 
+    }
 
+    public void setUndo(CommandActionListeners undo) {
+        this.undo = undo;
+    }
+
+    public void setRedo(CommandActionListeners redo) {
+        this.redo = redo;
+    }
 }

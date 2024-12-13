@@ -1,20 +1,21 @@
-package org.example.controller;
+package org.example.model.shape.factory;
 
-import org.example.controller.action.ActionDraw;
-import org.example.controller.action.AppAction;
-import org.example.model.shape.factory.ShapeType;
+import org.example.controller.ActionDraw;
+import org.example.controller.AppAction;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class MenuState {
     private boolean fill;
     private Color color;
-    private ShapeType shapeType;
-    private AppAction actionDraw;
+    private ShapeType type;
+    private AppAction action;
 
-    public MenuState(){
-        shapeType = ShapeType.RECTANGLE;
-        color = Color.BLUE;
+    public MenuState() {
+        color = Color.cyan;
+        type = ShapeType.RECTANGULAR;
         fill = false;
     }
 
@@ -34,19 +35,19 @@ public class MenuState {
         this.color = color;
     }
 
-    public ShapeType getShapeType() {
-        return shapeType;
+    public ShapeType getType() {
+        return type;
     }
 
-    public void setShapeType(ShapeType shapeType) {
-        this.shapeType = shapeType;
+    public void setType(ShapeType type) {
+        this.type = type;
     }
 
     public AppAction getAction() {
-        return actionDraw;
+        return action;
     }
 
-    public void setAction(AppAction actionDraw) {
-        this.actionDraw = actionDraw;
+    public void setAction(AppAction action) {
+        this.action = action;
     }
 }

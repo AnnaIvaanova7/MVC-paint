@@ -1,7 +1,7 @@
 package org.example.view;
 
+import org.example.controller.ActionDraw;
 import org.example.controller.Controller;
-import org.example.controller.action.ActionDraw;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

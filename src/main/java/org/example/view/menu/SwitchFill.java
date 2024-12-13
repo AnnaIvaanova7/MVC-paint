@@ -1,24 +1,18 @@
 package org.example.view.menu;
 
-import org.example.controller.MenuState;
-import org.example.model.shape.fill.FillBehavior;
+import org.example.model.shape.factory.MenuState;
 
-import javax.swing.*;
-import java.awt.*;
-
-public class SwitchFill implements AppCommand{
-
-
+public class SwitchFill implements AppCommand {
     private boolean fill;
-    private MenuState menuState;
+    private MenuState state;
 
-    public SwitchFill(boolean fill, MenuState menuState) {
+    public SwitchFill(boolean fill, MenuState state) {
         this.fill = fill;
-        this.menuState = menuState;
+        this.state = state;
     }
 
     @Override
     public void execute() {
-        menuState.setFill(fill);
+        state.setFill(fill);
     }
 }

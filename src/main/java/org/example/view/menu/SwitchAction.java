@@ -1,21 +1,19 @@
 package org.example.view.menu;
 
-import org.example.controller.MenuState;
-import org.example.controller.action.AppAction;
+import org.example.controller.AppAction;
+import org.example.model.shape.factory.MenuState;
 
 public class SwitchAction implements AppCommand {
+    private MenuState state;
+    private AppAction action;
 
-    private MenuState menuState;
-
-    private AppAction appAction;
-
-    public SwitchAction(MenuState menuState, AppAction appAction) {
-        this.menuState = menuState;
-        this.appAction = appAction;
+    public SwitchAction(MenuState state, AppAction action) {
+        this.state = state;
+        this.action = action;
     }
 
     @Override
     public void execute() {
-        menuState.setAction(appAction);
+        state.setAction(action);
     }
 }

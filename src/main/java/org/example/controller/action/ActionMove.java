@@ -1,21 +1,25 @@
-package org.example.controller.action;
+package org.example.controller;
+
 
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.controller.AppAction;
+import org.example.model.shape.factory.MyShapeFactory;
 
 import java.awt.geom.Point2D;
 
-public class ActionMove implements AppAction{
+public class ActionMove  implements org.example.controller.AppAction {
+    private Model model;
     private MyShape shape;
+    private MyShape moveableShape;
     private Point2D firstPoint;
     private Point2D secondPoint;
-    private Model model;
 
-    private MyShape moveShape;
-
-    public ActionMove(Model model){
+    public ActionMove(Model model) {
         this.model = model;
     }
+
+
     @Override
     public void mousePressed(Point2D point) {
         firstPoint = point;
@@ -24,49 +28,51 @@ public class ActionMove implements AppAction{
                 .filter(myShape -> myShape.getShape().contains(point))
                 .findFirst()
                 .orElse(null);
-        moveShape = shape;
-        model.update();
-
+        moveableShape = shape;
     }
 
     @Override
     public void mouseDragged(Point2D point) {
         secondPoint = point;
-        if (shape == null){
+        if (shape == null) {
             return;
         }
+
         double deltaX = secondPoint.getX() - firstPoint.getX();
         double deltaY = secondPoint.getY() - firstPoint.getY();
 
         Point2D newShapeFirstPoint = new Point2D.Double();
-        newShapeFirstPoint.setLocation(shape.getShape().getMaxX() + deltaX, shape.getShape().getMaxY() + deltaY);
+        newShapeFirstPoint.setLocation(shape.getShape().getMaxX() + deltaX,
+                shape.getShape().getMaxY() + deltaY);
 
         Point2D newShapeSecondPoint = new Point2D.Double();
-        newShapeSecondPoint.setLocation(shape.getShape().getMinX() + deltaX, shape.getShape().getMinY() + deltaY);
+        newShapeSecondPoint.setLocation(shape.getShape().getMinX() + deltaX,
+                shape.getShape().getMinY() + deltaY);
 
         shape.getShape().setFrameFromDiagonal(newShapeFirstPoint, newShapeSecondPoint);
-        moveShape.getShape().setFrameFromDiagonal(newShapeFirstPoint, newShapeSecondPoint);
+        moveableShape.getShape().setFrameFromDiagonal(newShapeFirstPoint, newShapeSecondPoint);
         firstPoint = secondPoint;
         model.update();
-
-
     }
 
     @Override
     public void execute() {
-
+        /*model.addCurrentShape(moveableShape);
+        model.update();*/
     }
 
     @Override
     public void unexecute() {
-
+        /*moveableShape = model.getLastShape();
+        model.removeLastShape();
+        model.update();*/
     }
 
     @Override
     public AppAction cloneAction() {
         ActionMove actionMove = new ActionMove(model);
         actionMove.shape = shape.clone();
-        actionMove.moveShape = moveShape;
+        actionMove.moveableShape = moveableShape;
         return actionMove;
     }
 }
